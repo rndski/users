@@ -1,25 +1,26 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import NavBar from "./Components/NavBar";
+import AppContent from "./Components/AppContent";
+//import UserData from "./Data/UserData";
+import "./App.css";
+import AppContextProvider from "./Data/AppContext";
+import { CssBaseline } from "@material-ui/core";
+import UIContextProvider from "./Data/UIContext";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <CssBaseline>
+          <AppContextProvider>
+            <div className="content">
+              <UIContextProvider>
+                <NavBar />
+                <AppContent />
+              </UIContextProvider>
+            </div>
+          </AppContextProvider>
+        </CssBaseline>
       </div>
     );
   }
