@@ -14,7 +14,6 @@ import Grid from "@material-ui/core/Grid";
 import Address from "./Address";
 import General from "./General";
 import Image from "./Image";
-//import { UIContext } from "../Data/UIContext";
 
 class UserCard extends Component {
   header = {
@@ -30,11 +29,11 @@ class UserCard extends Component {
   };
 
   onSwitch = view => {
-    //context.setBusy(true);
+    // this.context.setBusy(true);
     this.setState({ tab: view });
-    // setTimeout(() => {
-    //   context.setBusy(false);
-    // }, 200);
+    setTimeout(() => {
+      // this.context.setBusy(false);
+    }, 200);
   };
   togglePopover = event => {
     let newState = !this.state.popover.open;
@@ -47,7 +46,15 @@ class UserCard extends Component {
       }
     });
   };
+  shouldComponentUpdate({ id }, nextState) {
+    let shouldUpdate =
+      id !== this.props.id ||
+      nextState.popover.open !== this.state.popover.open ||
+      nextState.tab !== this.state.tab;
 
+    console.log("shouldUpdate: ", shouldUpdate);
+    return shouldUpdate;
+  }
   render() {
     console.log("UserCard:render()");
 

@@ -1,19 +1,49 @@
-import React, { useContext } from "react";
+import React, { /*useContext,*/ useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import UserCard from "./UserCard";
-import { AppContext } from "../Data/AppContext";
+import loadUserData from "../Data/LoadUsers";
+
+const USER_URL = "https://randomuser.me/api/";
 
 const AppContent = props => {
-  const context = useContext(AppContext);
+  const [users, setUsers] = useState([]);
 
   const content = {
     padding: "7rem 3rem 3rem 3rem"
   };
 
+  useEffect(() => {
+    console.log("UseEffect");
+    if (users.length === 0) {
+      loadUserData(50)
+        .then(res => {
+          console.log("got:", res.data.results);
+          setUsers(res.data.results);
+        })
+        .catch(e => {
+          console.log("Something went wrong with getting the users... :(", e);
+          throw e;
+        });
+    }
+  }, []);
+
+  const add = () => {
+    loadUserData(10)
+      .then(res => {
+        console.log("add:");
+        const s = [...users, ...res.data.results];
+        setUsers(s);
+      })
+      .catch(e => {
+        console.log("Something went wrong with getting the users... :(", e);
+        throw e;
+      });
+  };
+
   const createCards = items => {
     const cards = items.map((item, i) => {
       return (
-        <Grid item key={i} xs={12} sm={6} md={4} lg={3}>
+        <Grid item key={item.login.uuid} xs={12} sm={6} md={4} lg={3}>
           <UserCard
             title={item.name.title}
             picture={item.picture.thumbnail}
@@ -27,6 +57,7 @@ const AppContent = props => {
             dob={item.dob}
             phone={item.phone}
             cell={item.cell}
+            id={item.login.uuid}
           />
         </Grid>
       );
@@ -35,9 +66,12 @@ const AppContent = props => {
   };
 
   return (
-    <Grid style={content} container spacing={40}>
-      {createCards(context.users)}
-    </Grid>
+    <React.Fragment>
+      <Grid style={content} container spacing={40}>
+        {createCards(users)}
+      </Grid>
+      <button onClick={add}>Add</button>
+    </React.Fragment>
   );
 };
 

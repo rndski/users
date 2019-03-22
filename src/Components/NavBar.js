@@ -9,6 +9,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { UIContext } from "../Data/UIContext";
+import { AppContext } from "../Data/AppContext";
 
 const styles = {
   root: {
@@ -49,6 +50,7 @@ const NavBar = props => {
 
   const { classes } = props;
   const context = useContext(UIContext);
+  const users = useContext(AppContext);
 
   return (
     <div className={classes.root}>
@@ -58,6 +60,9 @@ const NavBar = props => {
             className={classes.menuButton}
             color="inherit"
             aria-label="Menu"
+            onClick={() => {
+              users.loadUsers(5);
+            }}
           >
             {context.busy ? (
               <CircularProgress size={24} color="inherit" />

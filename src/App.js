@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import NavBar from "./Components/NavBar";
 import AppContent from "./Components/AppContent";
-//import UserData from "./Data/UserData";
 import "./App.css";
 import AppContextProvider from "./Data/AppContext";
 import { CssBaseline } from "@material-ui/core";
