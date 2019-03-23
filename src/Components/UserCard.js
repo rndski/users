@@ -17,7 +17,8 @@ import Image from "./Image";
 
 class UserCard extends Component {
   header = {
-    textTransform: "capitalize"
+    textTransform: "capitalize",
+    textAlign: "left"
   };
 
   state = {
@@ -81,6 +82,7 @@ class UserCard extends Component {
     return (
       <Card>
         <CardHeader
+          style={this.header}
           avatar={
             <Avatar
               onClick={this.togglePopover}
@@ -112,7 +114,7 @@ class UserCard extends Component {
           title={`${props.first_name} ${props.last_name}`}
           subheader={props.age}
         />
-        <CardContent style={{ height: 100 }}>{tab}</CardContent>
+        <CardContent style={{ height: 60 }}>{tab}</CardContent>
 
         <CardActions>
           <Grid

@@ -27,9 +27,19 @@ const styles = {
 let scrollHandle = null;
 
 const NavBar = props => {
+  const users = useContext(AppContext);
+
   const scrollStart = e => {
     if (scrollHandle !== null) clearTimeout(scrollHandle);
 
+    const offset = 20; //margin.
+
+    if (
+      window.innerHeight + window.scrollY + offset >=
+      document.body.offsetHeight
+    ) {
+      console.log(":bottom");
+    }
     scrollHandle = setTimeout(() => {
       scrollEnd();
     }, 100);
@@ -50,7 +60,6 @@ const NavBar = props => {
 
   const { classes } = props;
   const context = useContext(UIContext);
-  const users = useContext(AppContext);
 
   return (
     <div className={classes.root}>
